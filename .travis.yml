@@ -1,0 +1,36 @@
+sudo: required
+language: generic
+
+services:
+  - docker
+
+before_install:
+  - docker build -t jmcausing/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true jmcausing/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t jmcausing/multi-client ./client
+  - docker build -t jmcausing/multi-nginx ./nginx
+  - docker build -t jmcausing/multi-server ./server
+  - docker build -t jmcausing/multi-worker ./worker
+  # Login to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u $DOCKER_ID --password-stdin
+  # Take those images and push then to docker hub
+  - docker push jmcausing/multi-client
+  - docker push jmcausing/multi-nginx
+  - docker push jmcausing/multi-server
+  - docker push jmcausing/multi-worker
+
+# deploy:
+#   provider: elasticbeanstalk
+#   region: "us-west-2"
+#   app: "docker"
+#   env: "Docker-env"
+#   bucket_name: "elasticbeanstalk-us-west-2-860399643556"
+#   bucket_path: "docker"
+#   on:
+#     branch: master
+#   access_key_id: $AWS_ACCESS_KEY
+#   secret_access_key: $AWS_SECRET_KEY
