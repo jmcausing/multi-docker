@@ -25,6 +25,7 @@
         {
             "name": "nginx",
             "image": "jmcausing1/complex-nginx",
+            "hostname": "nginx",
             "essential": true,
             "portMappings": [
                 {
