@@ -13,14 +13,14 @@ script:
 after_success:
   - docker build -t jmcausing1/multi-client ./client
   - docker build -t jmcausing1/multi-nginx ./nginx
-  - docker build -t jmcausing1/multi-api ./api
+  - docker build -t jmcausing1/multi-server ./server
   - docker build -t jmcausing1/multi-worker ./worker
   # Login into docker hub.
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # push images to docker hub.
   - docker push jmcausing1/multi-client
   - docker push jmcausing1/multi-nginx
-  - docker push jmcausing1/multi-api
+  - docker push jmcausing1/multi-server
   - docker push jmcausing1/multi-worker
 deploy:
   provider: elasticbeanstalk
