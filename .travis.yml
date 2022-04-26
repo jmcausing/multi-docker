@@ -15,7 +15,7 @@ after_success:
   - docker build -t "$DOCKER_ID"/complex-nginx -f ./nginx/Dockerfile.dev ./nginx
   - docker build -t "$DOCKER_ID"/complex-server ./server
   - docker build -t "$DOCKER_ID"/complex-worker ./worker
-  # Login into docker hub.
+  # Login into docker hub
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # push images to docker hub
   - docker push "$DOCKER_ID"/complex-client
