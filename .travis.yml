@@ -11,18 +11,17 @@ script:
   - docker run -e CI=true "$DOCKER_ID"/react-client-test npm test
 
 after_success:
-  - docker build -t "$DOCKER_ID"/complex-client ./client
-  - docker build -t "$DOCKER_ID"/complex-nginx -f ./nginx/Dockerfile.dev ./nginx
-  - docker build -t "$DOCKER_ID"/complex-server ./server
-  - docker build -t "$DOCKER_ID"/complex-worker ./worker
+  - docker build -t jmcausing1/multi-client ./client
+  - docker build -t jmcausing1/multi-nginx ./nginx
+  - docker build -t jmcausing1/multi-api ./api
+  - docker build -t jmcausing1/multi-worker ./worker
   # Login into docker hub.
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # push images to docker hub
-  - docker push "$DOCKER_ID"/complex-client
-  - docker push "$DOCKER_ID"/complex-nginx
-  - docker push "$DOCKER_ID"/complex-server
-  - docker push "$DOCKER_ID"/complex-worker
-
+  - docker push jmcausing1/multi-client
+  - docker push jmcausing1/multi-nginx
+  - docker push jmcausing1/multi-api
+  - docker push jmcausing1/multi-worker
 deploy:
   provider: elasticbeanstalk
   region: 'us-west-2'

@@ -1,11 +1,11 @@
 version: "3"
 services:
   client:
-    image: "jmcausing1/complex-client"
+    image: "jmcausing1/multi-client"
     mem_limit: 128m
     hostname: client
   server:
-    image: "jmcausing1/complex-server"
+    image: "jmcausing1/multi-server"
     mem_limit: 128m
     hostname: api
     environment:
@@ -17,14 +17,14 @@ services:
       - PGPASSWORD=$PGPASSWORD
       - PGPORT=$PGPORT
   worker:
-    image: "jmcausing1/complex-worker"
+    image: "jmcausing1/multi-worker"
     mem_limit: 128m
     hostname: worker
     environment:
       - REDIS_HOST=$REDIS_HOST
       - REDIS_PORT=$REDIS_PORT
   nginx:
-    image: "jmcausing1/complex-nginx"
+    image: "jmcausing1/multi-nginx"
     mem_limit: 128m
     hostname: nginx
     ports:
