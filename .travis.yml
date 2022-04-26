@@ -17,7 +17,7 @@ after_success:
   - docker build -t jmcausing1/multi-worker ./worker
   # Login into docker hub.
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  # push images to docker hub
+  # push images to docker hub.
   - docker push jmcausing1/multi-client
   - docker push jmcausing1/multi-nginx
   - docker push jmcausing1/multi-api
