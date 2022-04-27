@@ -9,11 +9,9 @@ class Fib extends Component {
   };
 
   componentDidMount() {
-    setInterval(() => {
     this.fetchValues();
     this.fetchIndexes();
-    }, 1000)
-   }
+  }
 
   async fetchValues() {
     const values = await axios.get('/api/values/current');
